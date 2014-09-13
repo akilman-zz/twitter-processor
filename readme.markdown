@@ -1,3 +1,7 @@
+Status
+======
+[![Build Status](https://travis-ci.org/akilman/java8-stuff.svg)](https://travis-ci.org/akilman/java8-stuff)
+
 Overview
 ========
 This is a sample application illustrating the usage of Java 8 lambdas to compare against traditional java.
