@@ -1,14 +1,14 @@
 package blog.examples;
 
-import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -78,29 +78,5 @@ public class AllTheLambdaz extends ATwitterProcessor {
 
     public List<String> _homeStreamUrls(Stream<Status> statusStream) {
         return statusStream.flatMap(AllTheLambdaz::httpWordStream).collect(Collectors.toList());
-    }
-
-    /**
-     * Helper to fetch more home stream data, however Twitter's throttling got in the way
-     * @param nPages number of pages to fetch
-     * @return combined stream of {@link twitter4j.Status}
-     */
-    private Stream<Status> pagedHomeStream(int nPages) {
-        return IntStream.range(1, nPages)
-                        .mapToObj(page -> getHomeTimelinePage(page).get())
-                        .flatMap(pageStream -> pageStream);
-    }
-
-    public Optional<Stream<Status>> getHomeTimelinePage(int page) {
-
-        Stream<Status> statusStream = null;
-
-        try {
-            statusStream = twitter.getHomeTimeline(new Paging(page)).stream();
-        } catch (TwitterException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(statusStream);
     }
 }
