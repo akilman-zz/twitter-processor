@@ -23,7 +23,11 @@ public class Traditional extends ATwitterProcessor {
 
         List<String> words = new ArrayList<>();
         for (Status status : homeTimeline) {
-            List<String> newWords = Arrays.asList(status.getText().replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" "));
+
+            String text = status.getText();
+            String textWithPunctuationRemoved = text.replaceAll("[^a-zA-Z ]", "");
+
+            List<String> newWords = Arrays.asList(textWithPunctuationRemoved.toLowerCase().split(" "));
             words.addAll(newWords);
         }
 

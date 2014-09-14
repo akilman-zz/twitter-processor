@@ -10,9 +10,9 @@ import java.util.Map;
  */
 public interface TwitterProcessor {
 
-    Map homeStreamSizeVsWord() throws TwitterException;
+    Map<Integer, List<String>> homeStreamSizeVsWord() throws TwitterException;
 
-    Map parallelHomeStreamSizeVsWord() throws TwitterException;
+    Map<Integer, List<String>> parallelHomeStreamSizeVsWord() throws TwitterException;
 
     List<String> homeStreamUrls() throws TwitterException;
 

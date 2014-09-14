@@ -12,13 +12,7 @@ public class Driver {
         Twitter twitter = Bootstrap.getTwitterInstance();
 
         AllTheLambdaz lambdaz = new AllTheLambdaz(twitter);
-        Traditional traditional = new Traditional(twitter);
-
         System.out.println(lambdaz.homeStreamSizeVsWord());
-        System.out.println(traditional.homeStreamSizeVsWord());
-
-        System.out.println(lambdaz.parallelHomeStreamSizeVsWord());
-
     }
 
 }
