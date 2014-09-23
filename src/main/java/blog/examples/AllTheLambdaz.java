@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * {@link TwitterProcessor} leveraging primarily lambdas for illustration
  */
@@ -48,20 +50,33 @@ public class AllTheLambdaz extends ATwitterProcessor {
         return statusStream.flatMap(AllTheLambdaz::filteredWordStream);
     }
 
-    private static Stream<String> filteredWordStream(Status status) {
+    protected static Stream<String> filteredWordStream(Status status) {
         return normalizedWordStream(status.getText()).filter(wordFilter);
     }
 
-    private static Stream<String> httpWordStream(Status status) {
+    protected static Stream<String> httpWordStream(Status status) {
         return wordStream(status.getText()).filter(httpFilter);
     }
 
-    private static Stream<String> normalizedWordStream(String text) {
-        return wordStream(text).map(s -> s.replaceAll("[^a-zA-Z ]", "").toLowerCase()).filter(String::isEmpty);
+    protected static Stream<String> normalizedWordStream(String text) {
+        return wordStream(text).map(s -> s.replaceAll("[^a-zA-Z ]", "").toLowerCase());
     }
 
-    private static Stream<String> wordStream(String text) {
+    protected static Stream<String> wordStream(String text) {
         return Arrays.asList(text.split(" ")).stream();
+    }
+
+    /**
+     * Helper to replicate streams for debugging. Clearly this isn't suitable for large streams.
+     *
+     * @param stream input stream
+     * @param <T> type of stream
+     * @return replicated stream
+     */
+    protected static <T> Stream<T> replicateAndLogStream(Stream<T> stream) {
+        List<T> ts = stream.collect(toList());
+        System.out.println(ts);
+        return ts.stream();
     }
 
     @Override
@@ -77,6 +92,6 @@ public class AllTheLambdaz extends ATwitterProcessor {
     }
 
     public List<String> _homeStreamUrls(Stream<Status> statusStream) {
-        return statusStream.flatMap(AllTheLambdaz::httpWordStream).collect(Collectors.toList());
+        return statusStream.flatMap(AllTheLambdaz::httpWordStream).collect(toList());
     }
 }

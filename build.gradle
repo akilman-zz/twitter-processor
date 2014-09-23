@@ -6,4 +6,10 @@ repositories {
 
 dependencies {
     compile 'org.twitter4j:twitter4j-core:4.0.2'
+    testCompile 'org.testng:testng:6.8.8'
+}
+
+test {
+    useTestNG()
+    include '**'
 }
