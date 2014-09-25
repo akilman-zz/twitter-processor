@@ -80,4 +80,51 @@ public class Traditional extends ATwitterProcessor {
     public List<String> parallelHomeStreamUrls() throws TwitterException {
         throw new TooMuchWorkDontWannaException("not implemented");
     }
+
+    @Override
+    public List<Status> getInterestingTimelineTweets_v1() throws TwitterException {
+
+        List<Status> homeTimeLine = twitter.getHomeTimeline();
+        List<Status> result = new ArrayList<>();
+
+        for (Status s : homeTimeLine) {
+            if (s.getFavoriteCount() > 1 &&
+                s.getText().contains("awesome")) {
+                result.add(s);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Status> getInterestingTimelineTweets_v2() throws TwitterException {
+
+        List<Status> homeTimeLine = twitter.getHomeTimeline();
+        List<Status> result = new ArrayList<>();
+
+        for (Status s : homeTimeLine) {
+            if (s.getFavoriteCount() > 5 &&
+                s.getText().contains("epic") &&
+                !s.getText().contains("awesome")) {
+                result.add(s);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Status> getInterestingTimelineTweets_v3(TraditionalPredicate predicate) throws TwitterException {
+
+        List<Status> homeTimeLine = twitter.getHomeTimeline();
+        List<Status> result = new ArrayList<>();
+
+        for (Status s : homeTimeLine) {
+            if (predicate.test(s)) {
+                result.add(s);
+            }
+        }
+
+        return result;
+    }
 }

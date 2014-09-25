@@ -91,6 +91,29 @@ public class AllTheLambdaz extends ATwitterProcessor {
         return _homeStreamUrls(statusStream);
     }
 
+
+
+    @Override
+    public List<Status> getInterestingTimelineTweets_v1() throws TwitterException {
+        return twitter.getHomeTimeline().stream()
+                    .filter(s -> s.getFavoriteCount() > 1 &&
+                            s.getText().contains("awesome"))
+                    .collect(toList());
+    }
+
+    @Override
+    public List<Status> getInterestingTimelineTweets_v2() throws TwitterException {
+        return twitter.getHomeTimeline().stream()
+                .filter(s -> s.getFavoriteCount() > 5 &&
+                        s.getText().contains("epic") &&
+                        !s.getText().contains("awesome"))
+                .collect(toList());
+    }
+
+    public List<Status> getInterestingTimelineTweets_v3(Predicate<Status> predicate) throws TwitterException {
+        return twitter.getHomeTimeline().stream().filter(predicate).collect(toList());
+    }
+
     public List<String> _homeStreamUrls(Stream<Status> statusStream) {
         return statusStream.flatMap(AllTheLambdaz::httpWordStream).collect(toList());
     }
