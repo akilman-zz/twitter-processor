@@ -1,12 +1,43 @@
 apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'idea'
 
 repositories {
-    mavenCentral()
+    jcenter()
+}
+
+idea {
+    project {
+        languageLevel = '1.8'
+    }
+}
+
+/**
+ * Parts of the Java code refer to Scala code. Thus, impose Scala code firsthand
+ * http://stackoverflow.com/a/23261076
+ */
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
+    }
 }
 
 dependencies {
     compile 'org.twitter4j:twitter4j-core:4.0.2'
-    testCompile 'org.testng:testng:6.8.8'
+    compile 'org.scala-lang:scala-library:2.11.5'
+    compile 'commons-collections:commons-collections:3.2.1'
+    compile 'org.eclipse.jetty:jetty-server:9.2.7.v20150116'
+    compile 'org.eclipse.jetty:jetty-servlet:9.2.7.v20150116'
+
+    testCompile 'org.testng:testng:6.8.17'
+    testCompile 'org.scala-lang:scala-library:2.11.5'
+    testCompile 'org.scalatest:scalatest_2.11:2.2.4'
+    testCompile 'org.scalamock:scalamock-scalatest-support_2.11:3.2.1'
 }
 
 test {
