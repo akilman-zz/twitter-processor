@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/akilman/java8-stuff.svg)](https://travis-ci.org/akilman/java8-stuff)
 
-[![Dependency Status](https://www.versioneye.com/user/projects/541831d954ffbdf8d000008f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/541831d954ffbdf8d000008f)
+[![Dependency Status](https://www.versioneye.com/user/projects/54d6b7de3ca0849531000765/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d6b7de3ca0849531000765)
 
 Overview
 ========
